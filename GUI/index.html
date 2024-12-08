@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main style="background-color:#91afaf;min-height: 100vh">
+    <div id="loading-message" class="px-4 py-3 mx-auto text-center main-container" style="display: none;min-height: 90vh; position: relative;">
+        <!--<div class="spinner-border" role="status" style="position: absolute; top: 50%">
+            <span>Loading...</span>
+
+        </div>-->
+        <div  role="status" style="position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);">
+            <div class = "rotate"><img src="android-chrome-192x192.png" alt="Loading..." style="width: 100px; height: 100px;"></div>
+
+
+        </div>
+    </div>
+
+
+    <div id="main_content">
+        <div class="px-4 py-3 mx-auto text-center main-container" style="background-color: #203a3a;position: relative">
+            <h1 id="main_title" class="display-5 fw-bold" style="margin-bottom: 0px;color: #ffffff;">AOO data</h1>
+        </div>
+        <div class="divider"></div>
+        <div id="page_main" class="py-2 mx-auto main-container">
+            <h2 class="display-8 fw-bold" style="margin-bottom: 20px;margin-top: 20px;">Main menu</h2>
+            <!--Nation: <input id="nation_input" type="text" placeholder="Nation" style="width: 100px;"><br/>-->
+
+            <button id="move_to_insert_page" class="btn btn-primary" type="button">Insert new data to DB</button></br>
+            <button id="move_to_generate_void_stats_page" class="btn btn-primary" type="button">Generate void stats</button></br>
+        </div>
+        <div id="page_generate_void_stats" class="py-2 mx-auto main-container" style="display: none;">
+            <h2 class="display-8 fw-bold" style="margin-bottom: 20px;margin-top: 20px;">Generate void stats</h2>
+            <!--Nation: <input id="nation_input" type="text" placeholder="Nation" style="width: 100px;"><br/>-->
+            Nation: <select id="nation_input_page_void_stats" style="width: 100px;" >
+                <option disabled selected value> --- </option>
+
+                </select><br/>
+
+            <button id="cancel_button_page_generate_void_stats" class="btn btn-primary" type="button" style="background-color: red;">Cancel</button>
+            <button id="compute_stats" class="btn btn-primary" type="button">Generate stats and past to clipboard</button>
+            <div id="void_stats_tab"></div>
+        </div>
+        <div id="page_insert_data_main" class="py-2 mx-auto main-container" style="display: none;">
+            <h2 class="display-8 fw-bold" style="margin-bottom: 20px;margin-top: 20px;">Insert data to DB</h2>
+            <!--Nation: <input id="nation_input" type="text" placeholder="Nation" style="width: 100px;"><br/>-->
+            Nation: <select id="nation_input" style="width: 100px;" >
+                <option disabled selected value> --- </option>
+
+                </select><br/>
+            Database File: <input id="db_file_input" type="text" placeholder="DB File" style="width: 400px;"> <button id="db_file_button" class="btn btn-primary" type="button">Select</button><br/>
+            Ranking File1: <input id="ranking_file1_input" type="text" placeholder="Ranking File 1" style="width: 400px;"> <button id="ranking_file1_button" class="btn btn-primary" type="button">Select</button><br/>
+            Ranking File2: <input id="ranking_file2_input" type="text" placeholder="Ranking File 2" style="width: 400px;"> <button id="ranking_file2_button" class="btn btn-primary" type="button">Select</button><br/>
+            <button id="cancel_data_insert_button_page_insert_data_main" class="btn btn-primary" type="button" style="background-color: red;">Cancel</button>
+            <button id="insert_data_button" class="btn btn-primary" type="button">Start insertion</button>
+        </div>
+        <div id="page_ranking_fusion" class="py-2 mx-auto main-container" style="display: none;">
+            <h2 class="display-8 fw-bold" style="margin-bottom: 20px;margin-top: 20px;">Ranking fusion</h2>
+            <div id="commander_ranking_widget"></div>
+            <button id="cancel_data_insert_button_page_ranking_fusion" class="btn btn-primary" type="button" style="background-color: red;">Cancel</button>
+            <button id="ranking_fusion_validate_button" class="btn btn-primary" type="button">Continue</button>
+        </div>
+        <div id="page_commander_fusion" class="py-2 mx-auto main-container" style="display: none;">
+            <h2 class="display-8 fw-bold" style="margin-bottom: 20px;margin-top: 20px;">Ranking fusion</h2>
+            <div id="commander_fusion_widget"></div>
+            <button id="cancel_data_insert_button_page_commander_fusion" class="btn btn-primary" type="button" style="background-color: red;">Cancel</button>
+            <button id="commander_fusion_validate_button" class="btn btn-primary" type="button">Continue</button>
+        </div>
+        <div id="page_finalize_data_insert" class="py-2 mx-auto main-container" style="display: none;">
+            <h2 class="display-8 fw-bold" style="margin-bottom: 20px;margin-top: 20px;">Insertion finalization</h2>
+            Back-up DB: <input type="checkbox" id="backup_db_checkbox" name="backup_db_checkbox" value="true" checked>
+            Verify data: <button id="verify_data_button" class="btn btn-primary" type="button">Verify</button>
+            <div id="verify_data_result"></div>
+            <button id="cancel_data_insert_button" class="btn btn-primary" type="button" style="background-color: red;">Cancel</button>
+            <button id="finalize_data_insert_button" class="btn btn-primary" type="button" style="background-color: green;">Finalize</button>
+
+        </div>
+        <div class="divider"></div>
+        <div class="py-2 mx-auto text-center" style="max-width: 840px;">
+            MaxBlunt (#385)
+        </div>
+    </div>
+        <!--
+            <div id="pywebview-status">Starting...</div>
+            <div id="pywebview-response"> </div>
+            <div class="row">
+              <div class="column">
+                  <div id="commander_ranking_widget">
+
+                  </div>
+
+              </div>
+              <div class="column">ip</div>
+            </div>
+           <button class="button" onClick="pywebview.api.get_ranking().then(function(r){document.getElementById('pywebview-response').innerHTML=r;})" style="display: none" id="button-test">Start</button>
+            -->
+</main>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+<script>
+    async function init() {
+        //return ranking_data = await RankingDataProxy();
+        //return fusion_data = await FusionDataProxy();
+    }
+
+    function move_to_ranking_fusion_page() {
+        document.getElementById("page_insert_data_main").style.display = "none";
+        document.getElementById("loading-message").style.display = "block";
+        RankingDataProxy().then(function (r) {
+            commander_ranking_widget(r, 'commander_ranking_widget');
+            document.getElementById("loading-message").style.display = "none";
+            document.getElementById("page_ranking_fusion").style.display = "block";
+            window.pywebview.api.notify("Ranking fusion page ready");
+        });
+    }
+
+    function move_to_commander_fusion_page() {
+        document.getElementById("page_insert_data_main").style.display = "none";
+        document.getElementById("loading-message").style.display = "block";
+        FusionDataProxy().then(function (r) {
+            commander_fusion_widget(r, 'commander_fusion_widget');
+            document.getElementById("loading-message").style.display = "none";
+            document.getElementById("page_commander_fusion").style.display = "block";
+            window.pywebview.api.notify("Commander fusion page ready");
+        });
+    }
+
+    function move_to_finalize_data_insertion_page() {
+        document.getElementById("verify_data_result").innerHTML = "";
+        document.getElementById("loading-message").style.display = "none";
+        document.getElementById("page_finalize_data_insert").style.display = "block";
+    }
+
+    function open_aoo_data_website() {
+        let element = document.getElementById("verify_data_result");
+        element.innerHTML = "";
+        // create iframe on 127.0.0.1:8000
+        let iframe = document.createElement("iframe");
+        iframe.src = "http://127.0.0.1:8000/?world=tmp";
+        iframe.style.width = "100%";
+        iframe.style.height = "700px";
+        element.appendChild(iframe);
+    }
+
+    function init_page_insert_data_main_events() {
+
+
+
+        document.getElementById("move_to_insert_page").onclick = function () {
+            document.getElementById("page_main").style.display = "none";
+            document.getElementById("page_insert_data_main").style.display = "block";
+        };
+
+        document.getElementById("nation_input").onchange = async function () {
+            let db_file_input = document.getElementById("db_file_input");
+            db_file_input.value = "aoodata.github.io/data/" + this.value + "DB.sqlite";
+            let ranking_files_guess = await window.pywebview.api.find_latest_ranking_file(this.value);
+            if (ranking_files_guess.length > 0 ) {
+                document.getElementById("ranking_file1_input").value = ranking_files_guess[0];
+            }
+            if (ranking_files_guess.length > 1 ) {
+                document.getElementById("ranking_file2_input").value = ranking_files_guess[1];
+            }
+        };
+
+        document.getElementById("db_file_button").onclick = async function () {
+            document.getElementById("db_file_input").value = await window.pywebview.api.open_file_dialog();
+        };
+
+        document.getElementById("ranking_file1_button").onclick = async function () {
+            document.getElementById("ranking_file1_input").value = await window.pywebview.api.open_file_dialog();
+        };
+
+        document.getElementById("ranking_file2_button").onclick = async function () {
+            document.getElementById("ranking_file2_input").value = await window.pywebview.api.open_file_dialog();
+        };
+
+        document.getElementById("insert_data_button").onclick = async function () {
+            let nation = document.getElementById("nation_input").value;
+            let db_file = document.getElementById("db_file_input").value;
+            let ranking_file1 = document.getElementById("ranking_file1_input").value;
+            let ranking_file2 = document.getElementById("ranking_file2_input").value;
+            if (nation === "" || db_file === "" || ranking_file1 === "") {
+                alert("Please fill all the fields");
+                return;
+            }
+            let ranking_files = [ranking_file1];
+            if (ranking_file2 !== "") {
+                ranking_files.push(ranking_file2);
+            }
+            document.getElementById("page_insert_data_main").style.display = "none";
+            document.getElementById("loading-message").style.display = "block";
+            window.pywebview.api.data_insertion_process(nation, db_file, ranking_files);
+            //document.getElementById("loading-message").style.display = "none";
+            //move_to_ranking_fusion_page();
+        };
+
+        document.getElementById("ranking_fusion_validate_button").onclick = function () {
+            document.getElementById("page_ranking_fusion").style.display = "none";
+            document.getElementById("loading-message").style.display = "block";
+            window.pywebview.api.data_insertion_process();
+            //document.getElementById("loading-message").style.display = "none";
+            //move_to_commander_fusion_page();
+        };
+
+        document.getElementById("commander_fusion_validate_button").onclick = function () {
+            document.getElementById("page_commander_fusion").style.display = "none";
+            document.getElementById("loading-message").style.display = "block";
+            window.pywebview.api.data_insertion_process();
+            //document.getElementById("loading-message").style.display = "none";
+            //move_to_commander_fusion_page();
+        };
+
+        document.getElementById("verify_data_button").onclick = function () {
+            window.pywebview.api.test_data_insertion().then(function (r) {
+                open_aoo_data_website();
+            });
+        };
+
+        document.getElementById("cancel_data_insert_button").onclick = function () {
+            let backup_db_file = document.getElementById("backup_db_checkbox").checked;
+            window.pywebview.api.clean_up_data_insertion(false, backup_db_file);
+            document.getElementById("page_finalize_data_insert").style.display = "none";
+            document.getElementById("page_insert_data_main").style.display = "block";
+        };
+
+        document.getElementById("finalize_data_insert_button").onclick = function () {
+            let backup_db_file = document.getElementById("backup_db_checkbox").checked;
+            window.pywebview.api.clean_up_data_insertion(true, backup_db_file);
+            document.getElementById("page_finalize_data_insert").style.display = "none";
+            document.getElementById("page_main").style.display = "block";
+        };
+
+        document.getElementById("cancel_data_insert_button_page_insert_data_main").onclick = function () {
+            window.pywebview.api.clean_up_data_insertion(false, false);
+            document.getElementById("page_insert_data_main").style.display = "none";
+            document.getElementById("page_main").style.display = "block";
+        };
+
+        document.getElementById("cancel_data_insert_button_page_ranking_fusion").onclick = function () {
+            window.pywebview.api.clean_up_data_insertion(false, false);
+            document.getElementById("page_ranking_fusion").style.display = "none";
+            document.getElementById("page_insert_data_main").style.display = "block";
+        };
+
+        document.getElementById("cancel_data_insert_button_page_commander_fusion").onclick = function () {
+            window.pywebview.api.clean_up_data_insertion(false, false);
+            document.getElementById("page_commander_fusion").style.display = "none";
+            document.getElementById("page_insert_data_main").style.display = "block";
+        };
+
+        document.getElementById("compute_stats").onclick = async function () {
+            let nation = document.getElementById("nation_input_page_void_stats").value;
+            if (nation === "") {
+                alert("Please fill all the fields");
+                return;
+            }
+            document.getElementById("page_generate_void_stats").style.display = "none";
+            document.getElementById("loading-message").style.display = "block";
+            let tab = await window.pywebview.api.compute_void_stats(nation);
+            document.getElementById("loading-message").style.display = "none";
+            document.getElementById("void_stats_tab").innerHTML = tab;
+            document.getElementById("page_generate_void_stats").style.display = "block";
+        };
+
+        document.getElementById("cancel_button_page_generate_void_stats").onclick = function () {
+            document.getElementById("void_stats_tab").innerHTML = "";
+            document.getElementById("page_generate_void_stats").style.display = "none";
+            document.getElementById("page_main").style.display = "block";
+        };
+
+        document.getElementById("move_to_generate_void_stats_page").onclick = function () {
+            document.getElementById("page_main").style.display = "none";
+            document.getElementById("page_generate_void_stats").style.display = "block";
+        };
+    }
+
+    window.addEventListener('pywebviewready', async function () {
+        //var container = document.getElementById('pywebview-status');
+        //container.innerHTML = '<i>pywebview</i> is ready';
+        //document.getElementById('button-test').style.display = 'inline-block';
+
+        var conf = await window.pywebview.api.get_config();
+        var nations = conf["nations"];
+
+        var inputs = ["nation_input", "nation_input_page_void_stats"];
+        for(let i = 0; i < inputs.length; i++) {
+            var input = document.getElementById(inputs[i]);
+            for (let i = 0; i < nations.length; i++) {
+                let option = document.createElement("option");
+                option.value = nations[i]["name"];
+                option.text = nations[i]["name"];
+                input.appendChild(option);
+            }
+        }
+        init_page_insert_data_main_events();
+        /*init().then(function (r) {
+            run(r);
+        });*/
+    })
+</script>
+</body>
+</html>

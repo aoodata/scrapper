@@ -1,0 +1,102 @@
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
+.commander_ranking_widget{
+  width: 90%;
+  height: 100%;
+}
+
+.commander_ranking_list{
+  height: 600px;
+  overflow: auto;
+}
+
+.commander_ranking_element{
+  width: 100%;
+  border: #101214 1px solid;
+  border-radius: 5px;
+  margin-bottom: 2px;
+}
+
+.commander_fusion_widget{
+  width: 90%;
+}
+
+.matched_commander_list{
+  overflow: auto;
+}
+
+.matched_commander_element{
+  width: 100%;
+  border: #101214 1px solid;
+  border-radius: 5px;
+  margin-bottom: 2px;
+}
+
+.commanders_to_insert_list{
+  overflow: auto;
+}
+
+.commander_to_insert_element{
+  width: 100%;
+  border: #101214 1px solid;
+  border-radius: 5px;
+  margin-bottom: 2px;
+}
+
+.rotate {
+    animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+
+
+}
+
+.autocomplete-items {
+    position: absolute;
+    width: 100%;
+    margin-top: 2px;
+    margin-left: 0px;
+    border-radius: 0.375em;
+    border: 1px solid #d4d4d4;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #0dab5f;
+}
+
+.autocomplete-items div {
+    padding: 2px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+    background-color: #0dab5f;
+    color: white;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: #0dab5f !important;
+    color: #ffffff;
+}

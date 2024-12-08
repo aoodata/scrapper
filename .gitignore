@@ -1,0 +1,7 @@
+*tmp*.pickle
+adbkey/
+old/
+screenshots/
+__pycache__/
+.pytest_cache/
+.idea/
